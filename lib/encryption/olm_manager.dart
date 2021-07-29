@@ -639,7 +639,7 @@ class OlmManager {
         return;
       }
       final device = client.getUserDeviceKeysByCurve25519Key(
-          event.encryptedContent.tryGet<String>('sender_key', ''));
+          event.encryptedContent.tryGet<String>('sender_key' ?? ''));
       if (device == null) {
         return; // device not found
       }

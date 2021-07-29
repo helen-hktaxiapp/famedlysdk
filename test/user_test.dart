@@ -39,7 +39,7 @@ void main() {
     setUp(() async {
       await client.checkHomeserver('https://fakeserver.notexisting',
           checkWellKnown: false);
-      await client.login(
+      await client.login(LoginType.mLoginPassword,
           identifier: AuthenticationUserIdentifier(user: 'test'),
           password: '1234');
     });

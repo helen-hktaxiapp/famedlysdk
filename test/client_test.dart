@@ -323,7 +323,7 @@ void main() {
       await matrix.checkHomeserver('https://fakeserver.notexisting',
           checkWellKnown: false);
 
-      final loginResp = await matrix.login(
+      final loginResp = await matrix.login(LoginType.mLoginPassword,
           identifier: AuthenticationUserIdentifier(user: 'test'),
           password: '1234');
 
@@ -368,12 +368,12 @@ void main() {
       final profile = await matrix.getProfileFromUserId('@getme:example.com',
           getFromRooms: false);
       expect(profile.avatarUrl.toString(), 'mxc://test');
-      expect(profile.displayname, 'You got me');
+      expect(profile.displayName, 'You got me');
       final aliceProfile =
           await matrix.getProfileFromUserId('@alice:example.com');
       expect(aliceProfile.avatarUrl.toString(),
           'mxc://example.org/SEsfnsuifSDFSSEF');
-      expect(aliceProfile.displayname, 'Alice Margatroid');
+      expect(aliceProfile.displayName, 'Alice Margatroid');
     });
     test('sendToDeviceEncrypted', () async {
       if (!olmEnabled) {
@@ -588,7 +588,8 @@ void main() {
     });
     test('upload', () async {
       final client = await getClient();
-      final response = await client.uploadContent(Uint8List(0), 'file.jpeg');
+      final response =
+          await client.uploadContent(Uint8List(0), filename: 'file.jpeg');
       expect(response, 'mxc://example.com/AQwafuaFswefuhsfAFAgsw');
       expect(await client.database.getFile(response) != null,
           client.database.supportsFileStoring);
